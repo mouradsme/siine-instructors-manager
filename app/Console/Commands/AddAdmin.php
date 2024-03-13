@@ -36,7 +36,7 @@ class AddAdmin extends Command
             'name' => $name,
             'email' => $email,
             'password' => Hash::make($password),
-            'is_admin' => true, // Assuming you have an 'is_admin' column in your users table
+            'role' => 1, // Assuming you have an 'is_admin' column in your users table
         ]);
 
         $this->info('Admin created successfully.');
