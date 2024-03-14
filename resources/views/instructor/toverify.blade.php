@@ -1,14 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Eléments') }}
+            {{ __('Eléments à vérifier') }}
         </h2>
-        <div class="flex flex-wrap  gap-6">
-            <a class="relative" href="{{route('elements.add.page')}}">
-                <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black"></span>
-                <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900 dark:bg-transparent">{{ __('Ajouter') }}</span>
-            </a>
-        </div>
+
     </x-slot>
 
     <div class="py-12">

@@ -26,6 +26,16 @@ class InstructorController extends Controller
 
     }
 
+    public function editPage(Request $request, $id) {
+        $Instructor = Instructor::findOrFail($id);
+        $Credentials = User::find($Instructor->user_id);
+        return view('admin.instructors.edit', array(
+            "Categories" => Category::all(),
+            "Instructor" => $Instructor,
+            "Credentials" => $Credentials
+        ));
+
+    }
     // POST requests
 
     public function store(Request $request) {
@@ -44,6 +54,7 @@ class InstructorController extends Controller
         $Instructor = Instructor::create([
             'name' => $name,
             'category' => $category,
+            'user_id' => 0
         ]);
 
         if ($Instructor->exists) {
@@ -53,9 +64,43 @@ class InstructorController extends Controller
                 'password' => Hash::make($password),
                 'role' => 2
             ]);
-            if ($addedUser->exists) return redirect('/admin/instructors');
+            if ($addedUser->exists) {
+                $Instructor->user_id = $addedUser->id;
+                $Instructor->save();
+
+                return redirect('/admin/instructors');
+            }
         }
         if ($addedUser->exists) return redirect('/dashboard');
+
+    }
+    public function update(Request $request) {
+        $name = trim($request->input('name'));
+        $email = trim($request->input('email'));
+        $category = $request->input('category');
+        $id = $request->input('id');
+
+        $validated = $request->validate([
+            'name' => 'sometimes|min:5',
+            'email' => 'sometimes',
+            'category' => 'sometimes'
+        ]);
+
+        $Instructor = Instructor::find($id);
+        $addedUser = User::find($Instructor->user_id);
+
+        $Instructor->update([
+            'name' => $name,
+            'category' => $category,
+        ]);
+
+        $addedUser->update([
+                'name' => $name,
+                'email' => $email
+            ]);
+
+        return redirect('/admin/instructors');
+
 
     }
 }

@@ -16,6 +16,7 @@ class Element extends Model
         "status",
         "added_by",
         "order",
-        "category"
+        "category",
+        "uid"
     );
 }

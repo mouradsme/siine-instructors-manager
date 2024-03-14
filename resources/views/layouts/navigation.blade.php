@@ -16,6 +16,8 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
+                    @if (auth()->user()->role == 1)
+
                     <x-nav-link :href="route('instructors')" :active="request()->routeIs('instructors')">
                         {{ __('Instructeurs') }}
                     </x-nav-link>
@@ -27,6 +29,15 @@
                     <x-nav-link :href="route('elements')" :active="request()->routeIs('elements')">
                         {{ __('Eléments') }}
                     </x-nav-link>
+
+                    @endif
+                    @if (auth()->user()->role == 2)
+
+                    <x-nav-link :href="route('toverify')" :active="request()->routeIs('toverify')">
+                        {{ __('A vérifier') }}
+                    </x-nav-link>
+
+                    @endif
                 </div>
             </div>
 

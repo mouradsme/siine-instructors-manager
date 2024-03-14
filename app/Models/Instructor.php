@@ -10,6 +10,7 @@ class Instructor extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'category'
+        'category',
+        'user_id'
     ];
 }

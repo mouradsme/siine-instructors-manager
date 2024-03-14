@@ -13,7 +13,6 @@
 
     <div class="py-12">
         <div class="flex items-center justify-center p-12">
-            <!-- Author: FormBold Team -->
             <div class="mx-auto w-full max-w-[550px] ">
                 <form action="{{ route('categories.add.post') }}" method="POST" enctype="multipart/form-data">
                     @csrf
