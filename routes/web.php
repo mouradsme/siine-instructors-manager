@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ElementController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,6 +30,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/categories', [CategoryController::class, 'index'])->name('categories');
         Route::get('/admin/categories/add', [CategoryController::class, 'addPage'])->name('categories.add.page');
         Route::post('/admin/categories/add', [CategoryController::class, 'store'])->name('categories.add.post');
+
+        //Elements
+        Route::get('/admin/elements', [ElementController::class, 'index'])->name('elements');
+        Route::get('/admin/elements/add', [ElementController::class, 'addPage'])->name('elements.add.page');
+        Route::post('/admin/elements/add', [ElementController::class, 'store'])->name('elements.add.post');
 
         // Other admin routes...
     });

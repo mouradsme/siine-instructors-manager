@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('notes', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->integer('parent')->default(0);
+            $table->integer('video_id');
+            $table->text('message');
+            $table->integer('status')->default(0);
+            $table->integer('closed_by');
+            $table->text('closed_message');
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('notes');
     }
 };
