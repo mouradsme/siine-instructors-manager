@@ -6,6 +6,7 @@ use App\Http\Middleware\IsAdmin;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ElementController;
+use App\Http\Controllers\NoteController;
 
 Route::get('/', function () {
     return view('dashboard');
@@ -22,10 +23,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/elements/unverified', [ElementController::class, 'unverified'])->name('unverified');
     Route::get('/elements/approved', [ElementController::class, 'approved'])->name('approved');
+    Route::get('/elements/approved/view/{id}', [ElementController::class, 'approvedElementPage'])->name('approved.element.page');
     Route::get('/elements/unverified/edit/{id}', [ElementController::class, 'verifyElementPage'])->name('unverified.verify.page');
     Route::post('/elements/unverified/edit', [ElementController::class, 'updateElement'])->name('unverified.edit.post');
     Route::post('/elements/unverified/addNote', [ElementController::class, 'addNote'])->name('notes.add.post');
 
+    Route::get('/notes/delete/{id}', [NoteController::class, 'delete'])->name('note.delete.post');
 
     Route::middleware([IsAdmin::class])->group(function () {
         // Instructors

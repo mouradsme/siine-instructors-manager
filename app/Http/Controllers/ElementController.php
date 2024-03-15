@@ -26,18 +26,33 @@ class ElementController extends Controller
     }
 
     public function approved() {
-        $Instructor = Instructor::where('user_id', auth()->user()->id)->firstOrFail();
-        $category = $Instructor->category;
-        $Elements = Element::where('category', $category)->where('status', 1)->get();
+        if (auth()->user()->role == 1) {
+            // Admins
+            $Elements = Element::where('status', 1)->get();
+
+        } else {
+            $Instructor = Instructor::where('user_id', auth()->user()->id)->firstOrFail();
+            $category = $Instructor->category;
+            $Elements = Element::where('category', $category)->where('status', 1)->get();
+
+        }
+
         return view('instructor.approved', array(
             "Elements" => $Elements
         ));
     }
 
     public function unverified() {
-        $Instructor = Instructor::where('user_id', auth()->user()->id)->firstOrFail();
-        $category = $Instructor->category;
-        $Elements = Element::where('category', $category)->whereNot('status', 1)->get();
+        if (auth()->user()->role == 1) {
+            // Admins
+            $Elements = Element::whereNot('status', 1)->get();
+
+        } else {
+            $Instructor = Instructor::where('user_id', auth()->user()->id)->firstOrFail();
+            $category = $Instructor->category;
+            $Elements = Element::where('category', $category)->whereNot('status', 1)->get();
+
+        }
         return view('instructor.unverified', array(
             "Elements" => $Elements
         ));
@@ -65,6 +80,18 @@ class ElementController extends Controller
             "Element" => $Element,
             "Notes" => $Notes
         ));
+    }
+
+    function approvedElementPage(Request $request, $id) {
+
+        $Element = Element::find($id);
+
+
+
+        return view("instructor.approvedOne", array(
+            "Element" => $Element
+        ));
+
     }
 
     // POST requests
@@ -129,11 +156,22 @@ class ElementController extends Controller
             'title' => 'required',
             'status' => 'required',
             'description' => 'required',
-            'order' => 'required'
+            'order' => 'required',
+            'documents' => 'nullable|file', // Adjust allowed file types as needed
+
         ]);
 
         $Element = Element::find($id);
+
+
         if ($Element->update($validated)) {
+            if ($request->hasFile('documents')) {
+                $file = $request->file('documents');
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads/quizzes'), $fileName);
+                $Element->quiz_file = 'uploads/quizzes/' . $fileName;
+                $Element->save();
+            }
             return redirect()->to(route('unverified.verify.page', $id));
         }
 

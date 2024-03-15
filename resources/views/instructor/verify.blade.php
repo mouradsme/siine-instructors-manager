@@ -7,7 +7,7 @@
     </x-slot>
 
     <div class="py-12 flex relative " >
-        <div class="w-full sticky top-10">
+        <div class="w-full sticky top-10 stickyVideo">
             <div class=" dark:bg-gray-800 overflow-hidden  sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <iframe width="100%" height="500px" src="{{ $Element->video }}?si=cEHOwzj4lQtjLvwf" frameborder="0" allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -22,7 +22,18 @@
                 <div class="flex flex-wrap">
 
 
-                    <div class="w-full px-3 ">
+                    <div class="w-full px-3 sm:w-1/2">
+                        <div class="mb-5">
+                            <label for="order" class="mb-3 block text-base font-medium text-[#07074D]">
+                                {{__('Ordre')}}
+                            </label>
+                            <input type="number" min="1" name="order" id="order" value="{{ $Element->order }}" placeholder="{{__('Ordre')}}"
+                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+
+                    </div>
+
+                    <div class="w-full px-3 sm:w-1/2">
                         <div class="mb-5">
                             <label for="title" class="mb-3 block text-base font-medium text-[#07074D]">
                                 {{__('Titre')}}
@@ -42,18 +53,29 @@
                                 class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">{{ $Element->description }}</textarea>
                         </div>
                     </div>
+                    <hr />
 
-                    <div class="w-full px-3 sm:w-1/2">
+                    <div class="w-full px-3">
                         <div class="mb-5">
-                            <label for="order" class="mb-3 block text-base font-medium text-[#07074D]">
-                                {{__('Ordre')}}
-                            </label>
-                            <input type="number" min="1" name="order" id="order" value="{{ $Element->order }}" placeholder="{{__('Ordre')}}"
-                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                        </div>
+                            <label for="documents" class="mb-3 block text-base font-medium text-[#07074D]">
+                                {{__('Documents des quizzes')}}
 
+                            </label>
+                            <input type="file" name="documents" id="documents"  class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
                     </div>
-                    <div class="w-full px-3 sm:w-1/2">
+                    <div class="w-full px-3 mb-5">
+                        @if ($Element->quiz_file !== null)
+                        <a href="{{ asset($Element->quiz_file) }}"
+                            class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+                            {{__('Fichier')}}
+                        </a>
+                        @else
+                        Aucun fichier n'a encore été ajouté
+                        @endif
+                    </div>
+                        <hr>
+                    <div class="w-full px-3">
                         <div class="mb-5">
                             <label for="status" class="mb-3 block text-base font-medium text-[#07074D]">
                                 {{__('Etat')}}
@@ -65,11 +87,10 @@
                             </select>
 
                         </div>
+
                     </div>
 
-
                     <div class="w-full px-3 sm:w-1/2">
-
                         <button
                             class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
                             {{__('Mettre à jour')}}
@@ -90,13 +111,24 @@
                 <ul class="divide-y divide-gray-200 px-4">
                     @foreach ($Notes as $Note)
                     <li class="py-4">
-                        <div class="flex items-center">
-                            <input id="note_{{ $Note->id }}" name="note_{{ $Note->id }}" type="checkbox" disabled
-                            @if ($Note->status == 0)  @else checked @endif
-                                class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded">
-                            <label for="todo1" class="ml-3 block text-gray-900">
-                                <span class="text-lg font-medium">{{ $Note->message}}</span>
-                            </label>
+                        <div class="flex w-full ">
+                            <div class="w-full px-3 sm:w-1/2 ">
+                                <input id="note_{{ $Note->id }}" name="note_{{ $Note->id }}" type="checkbox" disabled
+                                @if ($Note->status == 0)  @else checked @endif
+                                    class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded">
+                                <label for="todo1" class="ml-3 block text-gray-900">
+                                    <span class="text-lg font-medium">{{ $Note->message}}</span>
+                                </label>
+
+                            </div>
+                            <div class="w-full px-3 sm:w-1/2 ">
+
+                                <a href="{{ route('note.delete.post', $Note->id) }}"
+                                    class="hover:shadow-form rounded-md bg-[#ff0011] py-1 px-3 text-center text-base font-semibold text-white outline-none">
+                                    {{__('Retirer')}}
+                                </a>
+                            </div>
+
                         </div>
                     </li>
 

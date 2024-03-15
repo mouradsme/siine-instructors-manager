@@ -31,7 +31,6 @@
                     </x-nav-link>
 
                     @endif
-                    @if (auth()->user()->role == 2)
 
                     <x-nav-link :href="route('unverified')" :active="request()->routeIs('unverified')">
                         {{ __('A vérifier') }}
@@ -42,7 +41,6 @@
                     </x-nav-link>
 
 
-                    @endif
                 </div>
             </div>
 
