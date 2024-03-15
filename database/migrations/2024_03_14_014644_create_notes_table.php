@@ -16,8 +16,8 @@ return new class extends Migration
             $table->integer('video_id');
             $table->text('message');
             $table->integer('status')->default(0);
-            $table->integer('closed_by');
-            $table->text('closed_message');
+            $table->integer('closed_by')->nullable();
+            $table->text('closed_message')->nullable();
             $table->timestamps();
         });
     }

@@ -20,7 +20,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/toverify', [ElementController::class, 'toverify'])->name('toverify');
+    Route::get('/elements/unverified', [ElementController::class, 'unverified'])->name('unverified');
+    Route::get('/elements/approved', [ElementController::class, 'approved'])->name('approved');
+    Route::get('/elements/unverified/edit/{id}', [ElementController::class, 'verifyElementPage'])->name('unverified.verify.page');
+    Route::post('/elements/unverified/edit', [ElementController::class, 'updateElement'])->name('unverified.edit.post');
+    Route::post('/elements/unverified/addNote', [ElementController::class, 'addNote'])->name('notes.add.post');
+
 
     Route::middleware([IsAdmin::class])->group(function () {
         // Instructors

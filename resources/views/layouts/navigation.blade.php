@@ -33,9 +33,14 @@
                     @endif
                     @if (auth()->user()->role == 2)
 
-                    <x-nav-link :href="route('toverify')" :active="request()->routeIs('toverify')">
+                    <x-nav-link :href="route('unverified')" :active="request()->routeIs('unverified')">
                         {{ __('A vérifier') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('approved')" :active="request()->routeIs('approved')">
+                        {{ __('Approuvés') }}
+                    </x-nav-link>
+
 
                     @endif
                 </div>

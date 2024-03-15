@@ -7,4 +7,8 @@
 
     }
 
+    function status($status) {
+        $statuses = array("En cours", "Approuvé");
+        return $statuses[$status];
+    }
 ?>
