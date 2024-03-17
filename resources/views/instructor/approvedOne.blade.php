@@ -65,22 +65,14 @@
                             <label for="status" class="mb-3 block text-base font-medium text-[#07074D]">
                                 {{__('Etat')}}
                             </label>
-                            <select name="status" id="status" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
-                                @for($i = 0; $i < 2; $i++)
-                                    <option value="{{ $i }}" @if ($Element->status == $i) selected @endif>{{ status($i) }}</option>
-                                @endfor
-                            </select>
+                            
+                            <div  class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">{{ status($Element->status) }}</div>
+
 
                         </div>
 
                     </div>
 
-                    <div class="w-full px-3 sm:w-1/2">
-                        <button
-                            class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
-                            {{__('Mettre à jour')}}
-                        </button>
-                    </div>
 
                 </div>
 

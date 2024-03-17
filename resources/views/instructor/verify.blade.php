@@ -104,9 +104,9 @@
 
             <div class="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-16">
                 <div class="px-4 py-2">
-                    <h1 class="text-gray-800 font-bold text-2xl uppercase">Changements à faire</h1>
+                    <h1 class="text-gray-800 font-bold text-2xl uppercase">Remarques</h1>
                 </div>
-                <button id="addNote" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto">Demander de faire un changement</button>
+                <button id="addNote" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto">Ajouter une remarque</button>
 
                 <ul class="divide-y divide-gray-200 px-4">
                     @foreach ($Notes as $Note)
@@ -161,10 +161,10 @@
                     </svg>
                   </div>
                   <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Changement à faire</h3>
+                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Remarque</h3>
                     <div class="mt-2">
                       <p class="text-sm text-gray-500">
-                        <textarea cols="100%" type="text" name="message" id="message"  placeholder="{{__('Note')}}"
+                        <textarea cols="100%" type="text" name="message" id="message"  placeholder="{{__('Remarque')}}"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"></textarea>
                     </p>
                     </div>
